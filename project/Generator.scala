@@ -6,7 +6,7 @@ import scala.collection.immutable.SortedSet
 import com.steadystate.css.parser.selectors.ClassConditionImpl
 import com.steadystate.css.parser.{CSSOMParser, SACParserCSS3}
 import org.w3c.css.sac._
-import org.w3c.dom.css.CSSStyleRule
+import org.w3c.dom.css.{CSSMediaRule, CSSRuleList, CSSStyleRule}
 import treehugger.forest._
 import definitions._
 import treehuggerDSL._
@@ -38,21 +38,24 @@ class Generator(packageName: String, moduleName: String, cssUrl: URL) {
     s2.take(1).toLowerCase + s2.drop(1)
   }
 
-  def defs(reader: Reader): Seq[Tree] = {
-    val parser = new CSSOMParser(new SACParserCSS3())
-    val rules = parser.parseStyleSheet(new InputSource(reader), null, null).getCssRules
-    val classes =
-      (0 until rules.getLength)
-        .flatMap { i =>
-          rules.item(i) match {
-            case rule: CSSStyleRule =>
-              val selectors = parser.parseSelectors(new InputSource(new StringReader(rule.getSelectorText)))
-              (0 until selectors.getLength)
-                .flatMap(j => getClasses(selectors.item(j)))
-            case _                  =>
-              Nil
-          }
+  lazy val parser = new CSSOMParser(new SACParserCSS3())
+
+  def getClasses(rules: CSSRuleList): Seq[String] =
+    (0 until rules.getLength)
+      .flatMap { i =>
+        rules.item(i) match {
+          case rule: CSSStyleRule =>
+            val selectors = parser.parseSelectors(new InputSource(new StringReader(rule.getSelectorText)))
+            (0 until selectors.getLength)
+              .flatMap(j => getClasses(selectors.item(j)))
+          case rule: CSSMediaRule => getClasses(rule.getCssRules)
+          case _                  => Nil
         }
+      }
+
+  def defs(reader: Reader): Seq[Tree] = {
+    val rules = parser.parseStyleSheet(new InputSource(reader), null, null).getCssRules
+    val classes = getClasses(rules)
     val sorted = SortedSet(classes: _*)
     val idents =
       sorted

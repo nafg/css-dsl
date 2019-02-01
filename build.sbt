@@ -7,7 +7,7 @@ name := "css-dsl"
 skip in publish := true
 
 val commonSettings = Seq(
-  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.3.1"
+  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.4.0"
 )
 
 lazy val bootstrap3 =

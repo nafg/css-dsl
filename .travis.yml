@@ -1,5 +1,9 @@
 jdk:
   - oraclejdk8
 language: scala
-script: "sbt publish"
-if: branch = master
+script: "sbt test"
+deploy:
+  provider: script
+  script: sbt publish
+  on:
+    tags: true

@@ -17,7 +17,7 @@ class Generator(packageName: String, moduleName: String, classes: SortedSet[Stri
 
   def tree: Tree =
     q"""
-      package ${Term.Name(packageName)} {
+      package cssdsl.${Term.Name(packageName)} {
 
         import scala.language.implicitConversions
         import japgolly.scalajs.react.vdom.html_<^._

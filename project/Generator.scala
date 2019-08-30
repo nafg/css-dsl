@@ -2,7 +2,11 @@ import scala.collection.immutable.SortedSet
 import scala.meta._
 
 
-class Generator(packageName: String, moduleName: String, prefix: Option[String], classes: SortedSet[String]) {
+class Generator(packageName: String,
+                moduleName: String,
+                prefix: Option[String],
+                classes: SortedSet[String],
+                variant: TargetImpl) {
   private def camelize(s: String) = {
     val s2 = s.split(Array('-', ' ')).map(_.capitalize).mkString
     s2.take(1).toLowerCase + s2.drop(1)
@@ -25,22 +29,16 @@ class Generator(packageName: String, moduleName: String, prefix: Option[String],
       package cssdsl.${Term.Name(packageName)} {
 
         import scala.language.implicitConversions
-        import japgolly.scalajs.react.vdom.html_<^._
-        import japgolly.scalajs.react.vdom.{TagOf, TopNode}
+        ..${variant.imports}
 
         object ${Term.Name(moduleName)} {
           trait Classes[A] {
             ..$allDefs
           }
 
-          object C extends Classes[TagMod] {
-            protected override def op(clz: String) = ^.cls := clz
-          }
+          ${variant.C}
 
-          implicit class ConvertableToTagOfExtensionMethods[T, N <: TopNode](self: T)(implicit toTagOf: T => TagOf[N])
-              extends Classes[TagOf[N]] {
-            protected override def op(clz: String): TagOf[N] = toTagOf(self).apply(^.cls := clz)
-          }
+          ${variant.implicitClass}
         }
       }
     """

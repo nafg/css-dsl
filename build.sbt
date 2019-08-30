@@ -39,3 +39,13 @@ lazy val bulma =
       cssPrefixes := Seq(None, Some("b")),
       cssUrl := new URL("https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css")
     )
+
+lazy val semanticui =
+  project
+    .enablePlugins(ScalaJSPlugin, GeneratorPlugin)
+    .settings(
+      commonSettings,
+      cssPackageName := "semanticui",
+      cssPrefixes := Seq(Some("s")),
+      cssUrl := new URL("https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css")
+    )

@@ -4,7 +4,7 @@ import scala.meta._
 
 class Generator(packageName: String, moduleName: String, prefix: Option[String], classes: SortedSet[String]) {
   private def camelize(s: String) = {
-    val s2 = s.split("-").map(_.capitalize).mkString
+    val s2 = s.split(Array('-', ' ')).map(_.capitalize).mkString
     s2.take(1).toLowerCase + s2.drop(1)
   }
 

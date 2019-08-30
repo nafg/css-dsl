@@ -10,12 +10,36 @@ import com.helger.css.reader.{CSSReader, CSSReaderSettings}
 
 
 object CssExtractor {
+  private val hex = (('0' to '9') ++ ('a' to 'f') ++ ('A' to 'F')).toSet
+
+  def unescape(s: String) = {
+    def loop(ch: List[Char]): List[Char] = ch match {
+      case Nil          => Nil
+      case '\\' :: rest =>
+        val (digits, beyond) = rest.span(hex)
+        val c = Integer.parseInt(digits.mkString, 16).toChar
+        beyond match {
+          case '\r' :: '\n' :: more        => c :: loop(more)
+          case w :: more if w.isWhitespace => c :: loop(more)
+          case more                        => c :: loop(more)
+        }
+      case c :: rest    => c :: loop(rest)
+    }
+
+    loop(s.toList).mkString
+  }
+
+  def unquote(s: String) = s.stripPrefix("\"").stripSuffix("\"")
+
   def getClassesFromSelectors(sels: ICommonsList[CSSSelector]): Iterator[String] =
     sels.iterator().asScala.flatMap(_.getAllMembers.iterator().asScala)
       .flatMap {
-        case n: CSSSelectorMemberNot                 => getClassesFromSelectors(n.getAllSelectors)
-        case s: CSSSelectorSimpleMember if s.isClass => Iterator(s.getValue.stripPrefix("."))
-        case _                                       => Iterator.empty
+        case n: CSSSelectorMemberNot                             => getClassesFromSelectors(n.getAllSelectors)
+        case s: CSSSelectorSimpleMember if s.isClass             => Iterator(unescape(s.getValue.stripPrefix(".")))
+        case a: CSSSelectorAttribute if a.getAttrName == "class" =>
+          val v = unquote(a.getAttrValue)
+          if (v.endsWith("-")) Iterator.empty else Iterator(v)
+        case _                                                   => Iterator.empty
       }
 
   def getClassesFromRules(rules: ICommonsList[ICSSTopLevelRule]): Iterator[String] =

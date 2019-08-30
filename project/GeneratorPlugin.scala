@@ -6,6 +6,7 @@ object GeneratorPlugin extends AutoPlugin {
   object autoImport {
     val cssPackageName = settingKey[String]("The package to use")
     val cssUrl = settingKey[URL]("The URL of the CSS file to use")
+    val cssPrefixes = settingKey[Seq[Option[String]]]("Prefix variants")
     val cssGen = taskKey[Seq[File]]("Generate the DSL")
   }
 
@@ -17,10 +18,14 @@ object GeneratorPlugin extends AutoPlugin {
       val pkg = cssPackageName.value
       val url = cssUrl.value
       val outputDir = (sourceManaged in Compile).value
-      val generator = new Generator(pkg, "Dsl", CssExtractor.getClassesFromURL(url))
-      val file = outputDir / "cssdsl" / pkg.replace('.', '/') / "Dsl.scala"
-      IO.write(file, generator())
-      Seq[File](file)
+      val classes = CssExtractor.getClassesFromURL(url)
+      for (prefix <- cssPrefixes.value.distinct) yield {
+        val name = prefix.getOrElse("").capitalize + "Dsl"
+        val generator = new Generator(pkg, name, prefix, classes)
+        val file = outputDir / "cssdsl" / pkg.replace('.', '/') / s"$name.scala"
+        IO.write(file, generator())
+        file
+      }
     },
     sourceGenerators in Compile += cssGen
   )

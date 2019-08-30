@@ -2,15 +2,20 @@ import scala.collection.immutable.SortedSet
 import scala.meta._
 
 
-class Generator(packageName: String, moduleName: String, classes: SortedSet[String]) {
+class Generator(packageName: String, moduleName: String, prefix: Option[String], classes: SortedSet[String]) {
   private def camelize(s: String) = {
     val s2 = s.split("-").map(_.capitalize).mkString
     s2.take(1).toLowerCase + s2.drop(1)
   }
 
+  private def ident(cls: String) = {
+    val camelized = camelize(cls)
+    prefix.fold(camelized)(_ + camelized.capitalize)
+  }
+
   def defs: List[Stat] =
     classes.toList.map { cls =>
-      Defn.Val(List(Mod.Lazy()), List(Pat.Var(Term.Name(camelize(cls)))), None, q"this.op($cls)")
+      Defn.Val(List(Mod.Lazy()), List(Pat.Var(Term.Name(ident(cls)))), None, q"this.op($cls)")
     }
 
   def allDefs = defs :+ q"protected def op(clz: String): A"

@@ -16,6 +16,7 @@ lazy val bootstrap3 =
     .settings(
       commonSettings,
       cssPackageName := "bootstrap3",
+      cssPrefixes := Seq(None, Some("bs"), Some("bs3")),
       cssUrl := new URL("https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css")
     )
 
@@ -25,6 +26,7 @@ lazy val bootstrap4 =
     .settings(
       commonSettings,
       cssPackageName := "bootstrap4",
+      cssPrefixes := Seq(None, Some("bs"), Some("bs4")),
       cssUrl := new URL("https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
     )
 
@@ -34,5 +36,6 @@ lazy val bulma =
     .settings(
       commonSettings,
       cssPackageName := "bulma",
+      cssPrefixes := Seq(None, Some("b")),
       cssUrl := new URL("https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css")
     )

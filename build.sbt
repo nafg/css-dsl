@@ -1,6 +1,6 @@
 ThisBuild / organization := "io.github.nafg.css-dsl"
 ThisBuild / version := "0.4.0"
-ThisBuild / scalaVersion := "2.12.8"
+ThisBuild / scalaVersion := "2.12.9"
 ThisBuild / scalacOptions += "-feature"
 
 name := "css-dsl"

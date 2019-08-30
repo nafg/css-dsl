@@ -20,7 +20,7 @@ object GeneratorPlugin extends AutoPlugin {
       val mod = cssModuleName.value
       val url = cssUrl.value
       val outputDir = (sourceManaged in Compile).value
-      val generator = new Generator(pkg, mod, url)
+      val generator = new Generator(pkg, mod, CssExtractor.getClassesFromURL(url))
       val file = outputDir / pkg.replace('.', '/') / (mod + ".scala")
       IO.write(file, generator())
       Seq[File](file)

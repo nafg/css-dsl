@@ -1,8 +1,8 @@
-publishMavenStyle in ThisBuild := true
-publishTo in ThisBuild := Some("bintray" at "https://api.bintray.com/maven/naftoligug/maven/css-dsl")
+ThisBuild / publishMavenStyle := true
+ThisBuild / publishTo := Some("bintray" at "https://api.bintray.com/maven/naftoligug/maven/css-dsl")
 
 sys.env.get("BINTRAYKEY").toSeq.map { key =>
-  credentials in ThisBuild += Credentials(
+  ThisBuild / credentials += Credentials(
     "Bintray API Realm",
     "api.bintray.com",
     "naftoligug",

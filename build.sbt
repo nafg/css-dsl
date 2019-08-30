@@ -2,9 +2,10 @@ ThisBuild / organization := "io.github.nafg.css-dsl"
 ThisBuild / version := "0.4.0"
 ThisBuild / scalaVersion := "2.12.9"
 ThisBuild / scalacOptions += "-feature"
+ThisBuild / scalacOptions += "-deprecation"
 
 name := "css-dsl"
-skip in publish := true
+publish / skip := true
 
 def scalaJsReactSettings(config: CssDslConfig) = Seq(
   libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",

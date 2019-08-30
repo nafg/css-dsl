@@ -27,6 +27,6 @@ object GeneratorPlugin extends AutoPlugin {
         file
       }
     },
-    sourceGenerators in Compile += cssGen
+    Compile / sourceGenerators += cssGen
   )
 }

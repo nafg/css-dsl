@@ -1,42 +1,70 @@
 ThisBuild / organization := "io.github.nafg.css-dsl"
-ThisBuild / version := "0.4.0"
-ThisBuild / crossScalaVersions := Seq("2.12.8", "2.13.0")
+ThisBuild / version := "0.5.0"
+
+ThisBuild / crossScalaVersions := Seq("2.12.10", "2.13.1")
 ThisBuild / scalaVersion := (ThisBuild / crossScalaVersions).value.last
 ThisBuild / scalacOptions += "-feature"
+ThisBuild / scalacOptions += "-deprecation"
 
 name := "css-dsl"
-skip in publish := true
+publish / skip := true
 
-val commonSettings = Seq(
-  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2"
+def scalaJsReactSettings(config: CssDslConfig) = Seq(
+  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.5.0",
+  cssVariant := TargetImpl.ScalaJsReact,
+  cssDslConfig := config
 )
 
-lazy val bootstrap3 =
-  project
-    .enablePlugins(ScalaJSPlugin, GeneratorPlugin)
-    .settings(
-      commonSettings,
-      cssPackageName := "bootstrap3",
-      cssModuleName := "TB",
-      cssUrl := new URL("https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css")
-    )
+def scalatagsSettings(config: CssDslConfig) = Seq(
+  libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.8.3",
+  cssVariant := TargetImpl.Scalatags,
+  cssDslConfig := config
+)
 
-lazy val bootstrap4 =
-  project
-    .enablePlugins(ScalaJSPlugin, GeneratorPlugin)
-    .settings(
-      commonSettings,
-      cssPackageName := "bootstrap4",
-      cssModuleName := "TB",
-      cssUrl := new URL("https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css")
-    )
+val bootstrap3Config =
+  CssDslConfig(
+    "bootstrap3",
+    Set(None, Some("bs"), Some("bs3")),
+    new URL("https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css")
+  )
 
-lazy val bulma =
-  project
-    .enablePlugins(ScalaJSPlugin, GeneratorPlugin)
-    .settings(
-      commonSettings,
-      cssPackageName := "bulma",
-      cssModuleName := "Bulma",
-      cssUrl := new URL("https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css")
-    )
+val bootstrap4Config =
+  CssDslConfig(
+    "bootstrap4",
+    Set(None, Some("bs"), Some("bs4")),
+    new URL("https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
+  )
+
+val bulmaConfig =
+  CssDslConfig(
+    "bulma",
+    Set(None, Some("b")),
+    new URL("https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css")
+  )
+
+val semanticUiConfig =
+  CssDslConfig(
+    "semanticui",
+    Set(Some("s")),
+    new URL("https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css")
+  )
+
+lazy val bootstrap3_scalajsreact =
+  project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bootstrap3Config))
+lazy val bootstrap3_scalatags =
+  project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(bootstrap3Config))
+
+lazy val bootstrap4_scalajsreact =
+  project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bootstrap4Config))
+lazy val bootstrap4_scalatags =
+  project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(bootstrap4Config))
+
+lazy val bulma_scalajsreact =
+  project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bulmaConfig))
+lazy val bulma_scalatags =
+  project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(bulmaConfig))
+
+lazy val semanticui_scalajsreact =
+  project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(semanticUiConfig))
+lazy val semanticui_scalatags =
+  project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(semanticUiConfig))

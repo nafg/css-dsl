@@ -1,2 +1,2 @@
-libraryDependencies += "net.sourceforge.cssparser" % "cssparser" % "0.9.27"
-libraryDependencies += "com.eed3si9n" %% "treehugger" % "0.4.3"
+libraryDependencies += "org.scalameta" %% "scalameta" % "4.3.0"
+libraryDependencies += "com.helger" % "ph-css" % "6.2.0"

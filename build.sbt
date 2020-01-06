@@ -8,7 +8,7 @@ name := "css-dsl"
 publish / skip := true
 
 def scalaJsReactSettings(config: CssDslConfig) = Seq(
-  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",
+  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.5.0",
   cssVariant := TargetImpl.ScalaJsReact,
   cssDslConfig := config
 )

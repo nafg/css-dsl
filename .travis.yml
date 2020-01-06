@@ -1,9 +1,9 @@
 jdk:
   - openjdk8
 language: scala
-script: "sbt test"
+script: "sbt +test"
 deploy:
   provider: script
-  script: sbt publish
+  script: sbt +publish
   on:
     tags: true

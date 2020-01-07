@@ -37,8 +37,12 @@ object CssExtractor {
         case n: CSSSelectorMemberNot                             => getClassesFromSelectors(n.getAllSelectors)
         case s: CSSSelectorSimpleMember if s.isClass             => Iterator(unescape(s.getValue.stripPrefix(".")))
         case a: CSSSelectorAttribute if a.getAttrName == "class" =>
-          val v = unquote(a.getAttrValue)
-          if (v.endsWith("-")) Iterator.empty else Iterator(v)
+          val attrValue = a.getAttrValue
+          if (attrValue == null) Iterator.empty
+          else {
+            val v = unquote(attrValue)
+            if (v.endsWith("-")) Iterator.empty else Iterator(v)
+          }
         case _                                                   => Iterator.empty
       }
 

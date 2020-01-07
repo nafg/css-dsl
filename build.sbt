@@ -1,5 +1,5 @@
 ThisBuild / organization := "io.github.nafg.css-dsl"
-ThisBuild / version := "0.5.0"
+ThisBuild / version := "0.6.0"
 
 ThisBuild / crossScalaVersions := Seq("2.12.10", "2.13.1")
 ThisBuild / scalaVersion := (ThisBuild / crossScalaVersions).value.last
@@ -25,28 +25,40 @@ val bootstrap3Config =
   CssDslConfig(
     "bootstrap3",
     Set(None, Some("bs"), Some("bs3")),
-    new URL("https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css")
+    "3.4.1",
+    "https://maxcdn.bootstrapcdn.com/bootstrap/" + _ + "/css/bootstrap.min.css"
   )
 
 val bootstrap4Config =
   CssDslConfig(
     "bootstrap4",
     Set(None, Some("bs"), Some("bs4")),
-    new URL("https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
+    "4.4.1",
+    "https://maxcdn.bootstrapcdn.com/bootstrap/" + _ + "/css/bootstrap.min.css"
   )
 
 val bulmaConfig =
   CssDslConfig(
     "bulma",
     Set(None, Some("b")),
-    new URL("https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css")
+    "0.8.0",
+    "https://cdnjs.cloudflare.com/ajax/libs/bulma/" + _ + "/css/bulma.css"
   )
 
 val semanticUiConfig =
   CssDslConfig(
     "semanticui",
     Set(Some("s")),
-    new URL("https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css")
+    "2.4.2",
+    "https://cdn.jsdelivr.net/npm/semantic-ui@" + _ + "/dist/semantic.min.css"
+  )
+
+val fomanticUiConfig =
+  CssDslConfig(
+    "fomanticui",
+    Set(Some("f")),
+    "2.8.3",
+    "https://cdn.jsdelivr.net/npm/fomantic-ui@" + _ + "/dist/semantic.min.css"
   )
 
 lazy val bootstrap3_scalajsreact =
@@ -68,3 +80,8 @@ lazy val semanticui_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(semanticUiConfig))
 lazy val semanticui_scalatags =
   project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(semanticUiConfig))
+
+lazy val fomanticui_scalajsreact =
+  project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(fomanticUiConfig))
+lazy val fomanticui_scalatags =
+  project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(fomanticUiConfig))

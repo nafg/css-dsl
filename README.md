@@ -28,6 +28,7 @@ write code like this:
  * Bootstrap 4
  * Bulma
  * Semantic UI
+ * Fomantic UI
 
 ### Targeted Libraries
  * Scalajs-react
@@ -48,16 +49,18 @@ Artifacts are published to Bintray and synced to Bintray JCenter. For SBT use `r
 
 #### Artifact
 
-| CSS Framework | Library                  | SBT module ID                                                    |
-|---------------|--------------------------|------------------------------------------------------------------|
-| Bootstrap 3   | `scalatags.Text` (JVM)   | "io.github.nafg.css-dsl" %% "bootstrap3_scalatags" % "0.5.0"     |
-| Bootstrap 3   | scalajs-react (scala.js) | "io.github.nafg.css-dsl" %%% "bootstrap3_scalajsreact" % "0.5.0" |
-| Bootstrap 4   | `scalatags.Text` (JVM)   | "io.github.nafg.css-dsl" %% "bootstrap4_scalatags" % "0.5.0"     |
-| Bootstrap 4   | scalajs-react (scala.js) | "io.github.nafg.css-dsl" %%% "bootstrap4_scalajsreact" % "0.5.0" |
-| Bulma         | `scalatags.Text` (JVM)   | "io.github.nafg.css-dsl" %% "bulma_scalatags" % "0.5.0"          |
-| Bulma         | scalajs-react (scala.js) | "io.github.nafg.css-dsl" %%% "bulma_scalajsreact" % "0.5.0"      |
-| Semantic UI   | `scalatags.Text` (JVM)   | "io.github.nafg.css-dsl" %% "semanticui_scalatags" % "0.5.0"     |
-| Semantic UI   | scalajs-react (scala.js) | "io.github.nafg.css-dsl" %%% "semanticui_scalajsreact" % "0.5.0" |
+| CSS Framework | Library                  | SBT module ID                                                      |
+|---------------|--------------------------|--------------------------------------------------------------------|
+| Bootstrap 3   | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap3_scalatags" % "0.6.0"`     |
+| Bootstrap 3   | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap3_scalajsreact" % "0.6.0"` |
+| Bootstrap 4   | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap4_scalatags" % "0.6.0"`     |
+| Bootstrap 4   | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap4_scalajsreact" % "0.6.0"` |
+| Bulma         | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bulma_scalatags" % "0.6.0"`          |
+| Bulma         | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bulma_scalajsreact" % "0.6.0"`      |
+| Semantic UI   | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "semanticui_scalatags" % "0.6.0"`     |
+| Semantic UI   | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "semanticui_scalajsreact" % "0.6.0"` |
+| Fomantic UI   | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "fomanticui_scalatags" % "0.6.0"`     |
+| Fomantic UI   | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "fomanticui_scalajsreact" % "0.6.0"` |
 
 
 ### Import
@@ -73,6 +76,7 @@ Artifacts are published to Bintray and synced to Bintray JCenter. For SBT use `r
 | Bulma       | None   | `import cssdsl.bulma.Dsl._`         |
 | Bulma       | `b`    | `import cssdsl.bulma.BDsl._`        |
 | Semantic UI | `s`    | `import cssdsl.semanticui.SDsl._`   |
+| Fomantic UI | `f`    | `import cssdsl.fomanticui.FDsl._`   |
 
 ### Code
 

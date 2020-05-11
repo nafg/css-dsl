@@ -1,7 +1,6 @@
 ThisBuild / organization := "io.github.nafg.css-dsl"
-ThisBuild / version := "0.6.0"
 
-ThisBuild / crossScalaVersions := Seq("2.12.10", "2.13.1")
+ThisBuild / crossScalaVersions := Seq("2.12.11", "2.13.2")
 ThisBuild / scalaVersion := (ThisBuild / crossScalaVersions).value.last
 ThisBuild / scalacOptions += "-feature"
 ThisBuild / scalacOptions += "-deprecation"
@@ -10,13 +9,13 @@ name := "css-dsl"
 publish / skip := true
 
 def scalaJsReactSettings(config: CssDslConfig) = Seq(
-  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.6.0",
+  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.7.0",
   cssVariant := TargetImpl.ScalaJsReact,
   cssDslConfig := config
 )
 
 def scalatagsSettings(config: CssDslConfig) = Seq(
-  libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.8.6",
+  libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.9.1",
   cssVariant := TargetImpl.Scalatags,
   cssDslConfig := config
 )
@@ -41,7 +40,7 @@ val bulmaConfig =
   CssDslConfig(
     "bulma",
     Set(None, Some("b")),
-    "0.8.0",
+    "0.8.2",
     "https://cdnjs.cloudflare.com/ajax/libs/bulma/" + _ + "/css/bulma.css"
   )
 
@@ -57,7 +56,7 @@ val fomanticUiConfig =
   CssDslConfig(
     "fomanticui",
     Set(Some("f")),
-    "2.8.3",
+    "2.8.4",
     "https://cdn.jsdelivr.net/npm/fomantic-ui@" + _ + "/dist/semantic.min.css"
   )
 

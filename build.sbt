@@ -1,7 +1,7 @@
 ThisBuild / organization := "io.github.nafg.css-dsl"
 ThisBuild / version := "0.6.0"
 
-ThisBuild / crossScalaVersions := Seq("2.12.10", "2.13.1")
+ThisBuild / crossScalaVersions := Seq("2.12.11", "2.13.2")
 ThisBuild / scalaVersion := (ThisBuild / crossScalaVersions).value.last
 ThisBuild / scalacOptions += "-feature"
 ThisBuild / scalacOptions += "-deprecation"

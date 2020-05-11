@@ -40,7 +40,7 @@ val bulmaConfig =
   CssDslConfig(
     "bulma",
     Set(None, Some("b")),
-    "0.8.0",
+    "0.8.2",
     "https://cdnjs.cloudflare.com/ajax/libs/bulma/" + _ + "/css/bulma.css"
   )
 
@@ -56,7 +56,7 @@ val fomanticUiConfig =
   CssDslConfig(
     "fomanticui",
     Set(Some("f")),
-    "2.8.3",
+    "2.8.4",
     "https://cdn.jsdelivr.net/npm/fomantic-ui@" + _ + "/dist/semantic.min.css"
   )
 

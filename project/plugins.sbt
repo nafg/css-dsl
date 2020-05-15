@@ -1,2 +1,2 @@
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.33")
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.1.0")
 addSbtPlugin("com.dwijnand" % "sbt-dynver" % "4.0.0")

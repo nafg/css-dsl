@@ -1,7 +1,13 @@
 jdk:
   - openjdk8
 language: scala
+
+env:
+  - SCALAJS_VERSION=0.6.33
+  - SCALAJS_VERSION=1.1.0
+
 script: "sbt +test"
+
 deploy:
   provider: script
   script: sbt +publish

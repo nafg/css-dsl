@@ -60,6 +60,14 @@ val fomanticUiConfig =
     "https://cdn.jsdelivr.net/npm/fomantic-ui@" + _ + "/dist/semantic.min.css"
   )
 
+val fontawesomeUiConfig =
+  CssDslConfig(
+    "fontawesome",
+    Set(Some("fa")),
+    "5.13.1",
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/" + _ + "/css/all.css"
+  )
+
 lazy val bootstrap3_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bootstrap3Config))
 lazy val bootstrap3_scalatags =
@@ -84,3 +92,8 @@ lazy val fomanticui_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(fomanticUiConfig))
 lazy val fomanticui_scalatags =
   project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(fomanticUiConfig))
+
+lazy val fontawesome_scalajsreact =
+  project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(fontawesomeUiConfig))
+lazy val fontawesome_scalatags =
+  project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(fontawesomeUiConfig))

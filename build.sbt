@@ -69,7 +69,7 @@ val fomanticUiConfig =
   CssDslConfig(
     "Fomantic UI",
     Set(Some("f")),
-    latestTag("fomantic-ui"),
+    "2.8.4",
     "https://cdn.jsdelivr.net/npm/fomantic-ui@" + _ + "/dist/semantic.min.css"
   )
 

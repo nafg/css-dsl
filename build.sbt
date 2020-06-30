@@ -76,7 +76,7 @@ val fomanticUiConfig =
 val fontawesomeUiConfig =
   CssDslConfig(
     "Font Awesome",
-    Set(Some("fa")),
+    Set(None, Some("fa")),
     latestTag("@fortawesome/fontawesome-free"),
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/" + _ + "/css/all.css"
   )

@@ -35,7 +35,7 @@ def scalatagsSettings(config: CssDslConfig) = Seq(
 
 val bootstrap3Config =
   CssDslConfig(
-    "bootstrap3",
+    "Bootstrap 3",
     Set(None, Some("bs"), Some("bs3")),
     latestIn("bootstrap", 3),
     "https://maxcdn.bootstrapcdn.com/bootstrap/" + _ + "/css/bootstrap.min.css"
@@ -43,7 +43,7 @@ val bootstrap3Config =
 
 val bootstrap4Config =
   CssDslConfig(
-    "bootstrap4",
+    "Bootstrap 4",
     Set(None, Some("bs"), Some("bs4")),
     latestIn("bootstrap", 4),
     "https://maxcdn.bootstrapcdn.com/bootstrap/" + _ + "/css/bootstrap.min.css"
@@ -51,7 +51,7 @@ val bootstrap4Config =
 
 val bulmaConfig =
   CssDslConfig(
-    "bulma",
+    "Bulma",
     Set(None, Some("b")),
     latestTag("bulma"),
     "https://cdnjs.cloudflare.com/ajax/libs/bulma/" + _ + "/css/bulma.css"
@@ -59,7 +59,7 @@ val bulmaConfig =
 
 val semanticUiConfig =
   CssDslConfig(
-    "semanticui",
+    "Semantic UI",
     Set(Some("s")),
     latestTag("semantic-ui"),
     "https://cdn.jsdelivr.net/npm/semantic-ui@" + _ + "/dist/semantic.min.css"
@@ -67,7 +67,7 @@ val semanticUiConfig =
 
 val fomanticUiConfig =
   CssDslConfig(
-    "fomanticui",
+    "Fomantic UI",
     Set(Some("f")),
     latestTag("fomantic-ui"),
     "https://cdn.jsdelivr.net/npm/fomantic-ui@" + _ + "/dist/semantic.min.css"
@@ -75,7 +75,7 @@ val fomanticUiConfig =
 
 val fontawesomeUiConfig =
   CssDslConfig(
-    "fontawesome",
+    "Font Awesome",
     Set(Some("fa")),
     latestTag("@fortawesome/fontawesome-free"),
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/" + _ + "/css/all.css"

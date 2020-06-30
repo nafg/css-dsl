@@ -4,10 +4,12 @@ import sbt._
 
 object GeneratorPlugin extends AutoPlugin {
   object autoImport {
-    case class CssDslConfig(packageName: String,
+    case class CssDslConfig(name: String,
                             prefixes: Set[Option[String]],
                             version: String,
-                            versionedUrl: String => String)
+                            versionedUrl: String => String) {
+      def scalaPackage = name.toLowerCase.filter(Character.isJavaIdentifierPart)
+    }
     val cssDslConfig = settingKey[CssDslConfig]("The settings for generating the CSS DSL")
     val cssVariant = settingKey[TargetImpl]("The target")
     val cssGen = taskKey[Seq[File]]("Generate the DSL")
@@ -24,8 +26,8 @@ object GeneratorPlugin extends AutoPlugin {
       val classes = CssExtractor.getClassesFromURL(new URL(cfg.versionedUrl(cfg.version)))
       for (prefix <- cfg.prefixes.toSeq) yield {
         val name = prefix.getOrElse("").capitalize + "Dsl"
-        val generator = new Generator(cfg.packageName, name, prefix, classes, variant)
-        val file = outputDir / "cssdsl" / cfg.packageName.replace('.', '/') / s"$name.scala"
+        val generator = new Generator(cfg.scalaPackage, name, prefix, classes, variant)
+        val file = outputDir / "cssdsl" / cfg.scalaPackage.replace('.', '/') / s"$name.scala"
         IO.write(file, generator())
         file
       }

@@ -23,12 +23,13 @@ write code like this:
 ```
 
 ## Variants
-### CSS Frameworks
+### CSS libraries
  * Bootstrap 3
  * Bootstrap 4
  * Bulma
  * Semantic UI
  * Fomantic UI
+ * Font Awesome
 
 ### Targeted Libraries
  * Scalajs-react

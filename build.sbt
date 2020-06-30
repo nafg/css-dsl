@@ -1,3 +1,6 @@
+import scala.sys.process.stringToProcess
+
+
 ThisBuild / organization := "io.github.nafg.css-dsl"
 
 ThisBuild / crossScalaVersions := Seq("2.12.11", "2.13.2")
@@ -7,6 +10,16 @@ ThisBuild / scalacOptions += "-deprecation"
 
 name := "css-dsl"
 publish / skip := true
+
+def npmView(pkg: String, field: String)(parse: Stream[String] => String) =
+  parse(s"npm view $pkg $field".lineStream)
+
+def latestTag(pkg: String) = npmView(pkg, "dist-tags.latest")(_.head)
+
+val npmViewVersionRegex = ".*'(.*)'".r
+
+def latestIn(pkg: String, versionMajor: Int) =
+  npmView(s"$pkg@$versionMajor", "version")(_.last match { case npmViewVersionRegex(v) => v })
 
 def scalaJsReactSettings(config: CssDslConfig) = Seq(
   libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.7.2",
@@ -24,7 +37,7 @@ val bootstrap3Config =
   CssDslConfig(
     "bootstrap3",
     Set(None, Some("bs"), Some("bs3")),
-    "3.4.1",
+    latestIn("bootstrap", 3),
     "https://maxcdn.bootstrapcdn.com/bootstrap/" + _ + "/css/bootstrap.min.css"
   )
 
@@ -32,7 +45,7 @@ val bootstrap4Config =
   CssDslConfig(
     "bootstrap4",
     Set(None, Some("bs"), Some("bs4")),
-    "4.4.1",
+    latestIn("bootstrap", 4),
     "https://maxcdn.bootstrapcdn.com/bootstrap/" + _ + "/css/bootstrap.min.css"
   )
 
@@ -40,7 +53,7 @@ val bulmaConfig =
   CssDslConfig(
     "bulma",
     Set(None, Some("b")),
-    "0.8.2",
+    latestTag("bulma"),
     "https://cdnjs.cloudflare.com/ajax/libs/bulma/" + _ + "/css/bulma.css"
   )
 
@@ -48,7 +61,7 @@ val semanticUiConfig =
   CssDslConfig(
     "semanticui",
     Set(Some("s")),
-    "2.4.2",
+    latestTag("semantic-ui"),
     "https://cdn.jsdelivr.net/npm/semantic-ui@" + _ + "/dist/semantic.min.css"
   )
 
@@ -56,7 +69,7 @@ val fomanticUiConfig =
   CssDslConfig(
     "fomanticui",
     Set(Some("f")),
-    "2.8.4",
+    latestTag("fomantic-ui"),
     "https://cdn.jsdelivr.net/npm/fomantic-ui@" + _ + "/dist/semantic.min.css"
   )
 
@@ -64,7 +77,7 @@ val fontawesomeUiConfig =
   CssDslConfig(
     "fontawesome",
     Set(Some("fa")),
-    "5.13.1",
+    latestTag("@fortawesome/fontawesome-free"),
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/" + _ + "/css/all.css"
   )
 

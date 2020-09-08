@@ -4,7 +4,7 @@ language: scala
 
 env:
   - SCALAJS_VERSION=0.6.33
-  - SCALAJS_VERSION=1.1.1
+  - SCALAJS_VERSION=1.2.0
 
 script: "sbt +test"
 

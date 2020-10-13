@@ -28,7 +28,7 @@ def scalaJsReactSettings(config: CssDslConfig) = Seq(
 )
 
 def scalatagsSettings(config: CssDslConfig) = Seq(
-  libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.9.1",
+  libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.9.2",
   cssVariant := TargetImpl.Scalatags,
   cssDslConfig := config
 )
@@ -54,7 +54,7 @@ val bulmaConfig =
     "Bulma",
     Set(None, Some("b")),
     latestTag("bulma"),
-    "https://cdnjs.cloudflare.com/ajax/libs/bulma/" + _ + "/css/bulma.css"
+    "https://cdn.jsdelivr.net/npm/bulma@" + _ + "/css/bulma.min.css"
   )
 
 val semanticUiConfig =
@@ -69,7 +69,7 @@ val fomanticUiConfig =
   CssDslConfig(
     "Fomantic UI",
     Set(Some("f")),
-    "2.8.4",
+    latestTag("fomantic-ui"),
     "https://cdn.jsdelivr.net/npm/fomantic-ui@" + _ + "/dist/semantic.min.css"
   )
 
@@ -78,7 +78,7 @@ val fontawesomeUiConfig =
     "Font Awesome",
     Set(None, Some("fa")),
     latestTag("@fortawesome/fontawesome-free"),
-    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/" + _ + "/css/all.css"
+    "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@" + _ + "/css/all.min.css"
   )
 
 lazy val bootstrap3_scalajsreact =

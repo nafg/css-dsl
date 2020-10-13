@@ -23,7 +23,9 @@ object GeneratorPlugin extends AutoPlugin {
       val cfg = cssDslConfig.value
       val variant = cssVariant.value
       val outputDir = (Compile / sourceManaged).value
-      val classes = CssExtractor.getClassesFromURL(new URL(cfg.versionedUrl(cfg.version)))
+      val url = cfg.versionedUrl(cfg.version)
+      streams.value.log.info(s"Processing $url...")
+      val classes = CssExtractor.getClassesFromURL(new URL(url))
       for (prefix <- cfg.prefixes.toSeq) yield {
         val name = prefix.getOrElse("").capitalize + "Dsl"
         val generator = new Generator(cfg.scalaPackage, name, prefix, classes, variant)

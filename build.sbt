@@ -38,7 +38,7 @@ val bootstrap3Config =
     "Bootstrap 3",
     Set(None, Some("bs"), Some("bs3")),
     latestIn("bootstrap", 3),
-    "https://maxcdn.bootstrapcdn.com/bootstrap/" + _ + "/css/bootstrap.min.css"
+    "https://stackpath.bootstrapcdn.com/bootstrap/" + _ + "/css/bootstrap.min.css"
   )
 
 val bootstrap4Config =
@@ -46,7 +46,7 @@ val bootstrap4Config =
     "Bootstrap 4",
     Set(None, Some("bs"), Some("bs4")),
     latestIn("bootstrap", 4),
-    "https://maxcdn.bootstrapcdn.com/bootstrap/" + _ + "/css/bootstrap.min.css"
+    "https://cdn.jsdelivr.net/npm/bootstrap@" + _ + "/dist/css/bootstrap.min.css"
   )
 
 val bulmaConfig =

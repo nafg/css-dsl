@@ -22,13 +22,13 @@ def latestIn(pkg: String, versionMajor: Int) =
   npmView(s"$pkg@$versionMajor", "version")(_.last match { case npmViewVersionRegex(v) => v })
 
 def scalaJsReactSettings(config: CssDslConfig) = Seq(
-  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.7.5",
+  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.7.7",
   cssVariant := TargetImpl.ScalaJsReact,
   cssDslConfig := config
 )
 
 def scalatagsSettings(config: CssDslConfig) = Seq(
-  libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.9.2",
+  libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.9.3",
   cssVariant := TargetImpl.Scalatags,
   cssDslConfig := config
 )

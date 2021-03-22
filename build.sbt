@@ -3,7 +3,7 @@ import scala.sys.process.stringToProcess
 
 ThisBuild / organization := "io.github.nafg.css-dsl"
 
-ThisBuild / crossScalaVersions := Seq("2.12.13", "2.13.2")
+ThisBuild / crossScalaVersions := Seq("2.12.13", "2.13.5")
 ThisBuild / scalaVersion := (ThisBuild / crossScalaVersions).value.last
 ThisBuild / scalacOptions += "-feature"
 ThisBuild / scalacOptions += "-deprecation"

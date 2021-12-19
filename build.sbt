@@ -28,7 +28,7 @@ def scalaJsReactSettings(config: CssDslConfig) = Seq(
 )
 
 def scalatagsSettings(config: CssDslConfig) = Seq(
-  libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.10.0",
+  libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.11.0",
   cssVariant := TargetImpl.Scalatags,
   cssDslConfig := config
 )

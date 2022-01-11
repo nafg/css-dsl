@@ -59,6 +59,14 @@ val bootstrap4Config =
     "https://cdn.jsdelivr.net/npm/bootstrap@" + _ + "/dist/css/bootstrap.min.css"
   )
 
+val bootstrap5Config =
+  CssDslConfig(
+    "Bootstrap 5",
+    Set(None, Some("bs"), Some("bs5")),
+    latestIn("bootstrap", 5),
+    "https://cdn.jsdelivr.net/npm/bootstrap@" + _ + "/dist/css/bootstrap.min.css"
+  )
+
 val bulmaConfig =
   CssDslConfig(
     "Bulma",
@@ -100,6 +108,11 @@ lazy val bootstrap4_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bootstrap4Config))
 lazy val bootstrap4_scalatags =
   project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(bootstrap4Config))
+
+lazy val bootstrap5_scalajsreact =
+  project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bootstrap5Config))
+lazy val bootstrap5_scalatags =
+  project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(bootstrap5Config))
 
 lazy val bulma_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bulmaConfig))

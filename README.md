@@ -54,18 +54,20 @@ Artifacts are published to Bintray and synced to Bintray JCenter. For SBT use `r
 
 | CSS library  | Scala DOM library        | SBT Module ID                                                       |
 |--------------|--------------------------|---------------------------------------------------------------------|
-| Bootstrap 3  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap3_scalatags" % "0.7.1"`      |
-| Bootstrap 3  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap3_scalajsreact" % "0.7.1"`  |
-| Bootstrap 4  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap4_scalatags" % "0.7.1"`      |
-| Bootstrap 4  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap4_scalajsreact" % "0.7.1"`  |
-| Bulma        | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bulma_scalatags" % "0.7.1"`           |
-| Bulma        | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bulma_scalajsreact" % "0.7.1"`       |
-| Fomantic UI  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "fomanticui_scalatags" % "0.7.1"`      |
-| Fomantic UI  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "fomanticui_scalajsreact" % "0.7.1"`  |
-| Font Awesome | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "fontawesome_scalatags" % "0.7.1"`     |
-| Font Awesome | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "fontawesome_scalajsreact" % "0.7.1"` |
-| Semantic UI  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "semanticui_scalatags" % "0.7.1"`      |
-| Semantic UI  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "semanticui_scalajsreact" % "0.7.1"`  |
+| Bootstrap 3  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap3_scalatags" % "0.9.0"`      |
+| Bootstrap 3  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap3_scalajsreact" % "0.9.0"`  |
+| Bootstrap 4  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap4_scalatags" % "0.9.0"`      |
+| Bootstrap 4  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap4_scalajsreact" % "0.9.0"`  |
+| Bootstrap 5  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap5_scalatags" % "0.9.0"`      |
+| Bootstrap 5  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap5_scalajsreact" % "0.9.0"`  |
+| Bulma        | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bulma_scalatags" % "0.9.0"`           |
+| Bulma        | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bulma_scalajsreact" % "0.9.0"`       |
+| Fomantic UI  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "fomanticui_scalatags" % "0.9.0"`      |
+| Fomantic UI  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "fomanticui_scalajsreact" % "0.9.0"`  |
+| Font Awesome | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "fontawesome_scalatags" % "0.9.0"`     |
+| Font Awesome | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "fontawesome_scalajsreact" % "0.9.0"` |
+| Semantic UI  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "semanticui_scalatags" % "0.9.0"`      |
+| Semantic UI  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "semanticui_scalajsreact" % "0.9.0"`  |
 
 
 ### Import
@@ -78,9 +80,13 @@ Artifacts are published to Bintray and synced to Bintray JCenter. For SBT use `r
 | Bootstrap 4  | None   | `import cssdsl.bootstrap4.Dsl._`    |
 | Bootstrap 4  | `bs`   | `import cssdsl.bootstrap4.BsDsl._`  |
 | Bootstrap 4  | `bs4`  | `import cssdsl.bootstrap4.Bs4Dsl._` |
+| Bootstrap 5  | None   | `import cssdsl.bootstrap5.Dsl._`    |
+| Bootstrap 5  | `bs`   | `import cssdsl.bootstrap5.BsDsl._`  |
+| Bootstrap 5  | `bs5`  | `import cssdsl.bootstrap5.Bs5Dsl._` |
 | Bulma        | None   | `import cssdsl.bulma.Dsl._`         |
 | Bulma        | `b`    | `import cssdsl.bulma.BDsl._`        |
 | Fomantic UI  | `f`    | `import cssdsl.fomanticui.FDsl._`   |
+| Font Awesome | None   | `import cssdsl.fontawesome.Dsl._`   |
 | Font Awesome | `fa`   | `import cssdsl.fontawesome.FaDsl._` |
 | Semantic UI  | `s`    | `import cssdsl.semanticui.SDsl._`   |
 

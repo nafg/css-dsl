@@ -1,12 +1,21 @@
 import scala.sys.process.stringToProcess
 
+import _root_.io.github.nafg.scalacoptions._
 
-ThisBuild / organization := "io.github.nafg.css-dsl"
 
-ThisBuild / crossScalaVersions := Seq("2.12.15", "2.13.7")
-ThisBuild / scalaVersion := (ThisBuild / crossScalaVersions).value.last
-ThisBuild / scalacOptions += "-feature"
-ThisBuild / scalacOptions += "-deprecation"
+def myScalacOptions(version: String) =
+  ScalacOptions.all(version)(
+    (opts: options.Common) => opts.feature ++ opts.deprecation,
+  )
+
+inThisBuild(
+  List(
+    organization := "io.github.nafg.css-dsl",
+    scalaVersion := "3.0.2",
+    crossScalaVersions := Seq("2.13.7", scalaVersion.value),
+    scalacOptions ++= myScalacOptions(scalaVersion.value)
+  )
+)
 
 name := "css-dsl"
 publish / skip := true
@@ -22,7 +31,7 @@ def latestIn(pkg: String, versionMajor: Int) =
   npmView(s"$pkg@$versionMajor", "version")(_.last match { case npmViewVersionRegex(v) => v })
 
 def scalaJsReactSettings(config: CssDslConfig) = Seq(
-  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.7.7",
+  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "2.0.0",
   cssVariant := TargetImpl.ScalaJsReact,
   cssDslConfig := config
 )

@@ -11,8 +11,8 @@ def myScalacOptions(version: String) =
 inThisBuild(
   List(
     organization := "io.github.nafg.css-dsl",
-    scalaVersion := "3.0.2",
-    crossScalaVersions := Seq("2.13.8", scalaVersion.value),
+    scalaVersion := "3.1.0",
+    crossScalaVersions := Seq("2.13.7", scalaVersion.value),
     scalacOptions ++= myScalacOptions(scalaVersion.value),
     versionScheme := Some("early-semver")
   )

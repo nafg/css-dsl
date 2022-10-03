@@ -1,5 +1,5 @@
 import scala.sys.process.stringToProcess
-
+import _root_.io.github.nafg.mergify.dsl._
 import _root_.io.github.nafg.scalacoptions._
 
 
@@ -20,6 +20,11 @@ inThisBuild(
 
 name := "css-dsl"
 publish / skip := true
+
+mergifyExtraConditions := Seq(
+  (Attr.Author :== "scala-steward") ||
+    (Attr.Author :== "nafg-scala-steward[bot]")
+)
 
 def npmView(pkg: String, field: String)(parse: Stream[String] => String) =
   parse(s"npm view $pkg $field".lineStream)

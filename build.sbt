@@ -1,5 +1,5 @@
 import scala.sys.process.stringToProcess
-
+import _root_.io.github.nafg.mergify.dsl._
 import _root_.io.github.nafg.scalacoptions._
 
 
@@ -11,7 +11,7 @@ def myScalacOptions(version: String) =
 inThisBuild(
   List(
     organization := "io.github.nafg.css-dsl",
-    scalaVersion := "3.1.3",
+    scalaVersion := "3.2.0",
     crossScalaVersions := Seq("2.13.8", scalaVersion.value),
     scalacOptions ++= myScalacOptions(scalaVersion.value),
     versionScheme := Some("early-semver")
@@ -20,6 +20,11 @@ inThisBuild(
 
 name := "css-dsl"
 publish / skip := true
+
+mergifyExtraConditions := Seq(
+  (Attr.Author :== "scala-steward") ||
+    (Attr.Author :== "nafg-scala-steward[bot]")
+)
 
 def npmView(pkg: String, field: String)(parse: Stream[String] => String) =
   parse(s"npm view $pkg $field".lineStream)

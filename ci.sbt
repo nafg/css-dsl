@@ -1,5 +1,5 @@
 inThisBuild(List(
-  homepage := Some(url("https://github.com/nafg/mergify-yaml")),
+  homepage := Some(url("https://github.com/nafg/css-dsl")),
   licenses := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
   developers := List(
     Developer("nafg", "Naftoli Gugenheim", "98384+nafg@users.noreply.github.com", url("https://github.com/nafg"))

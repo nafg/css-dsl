@@ -92,7 +92,7 @@ val fomanticUiConfig =
   CssDslConfig(
     "Fomantic UI",
     Set(Some("f")),
-    latestTag("fomantic-ui"),
+    "2.9.0" /*latestTag("fomantic-ui")*/, // pin at 2.9.0 until https://github.com/phax/ph-css/issues/90 is fixed
     "https://cdn.jsdelivr.net/npm/fomantic-ui@" + _ + "/dist/semantic.min.css"
   )
 

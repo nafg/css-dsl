@@ -17,7 +17,8 @@ inThisBuild(List(
         "SONATYPE_PASSWORD" -> "${{ secrets.SONATYPE_PASSWORD }}",
         "SONATYPE_USERNAME" -> "${{ secrets.SONATYPE_USERNAME }}"
       )
-    )
+    ),
+    WorkflowStep.Run(List("gpg --list-keys"), cond = Some("${{ failure() }}"))
   )
 ))
 

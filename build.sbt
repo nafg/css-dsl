@@ -76,7 +76,7 @@ val bulmaConfig =
   CssDslConfig(
     "Bulma",
     Set(None, Some("b")),
-    latestTag("bulma"),
+    latestIn("bulma", 0), // pin at 0.x until https://github.com/phax/ph-css/issues/97 is fixed
     "https://cdn.jsdelivr.net/npm/bulma@" + _ + "/css/bulma.min.css"
   )
 

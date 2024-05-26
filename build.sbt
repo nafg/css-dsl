@@ -11,8 +11,8 @@ def myScalacOptions(version: String) =
 inThisBuild(
   List(
     organization := "io.github.nafg.css-dsl",
-    scalaVersion := "3.3.1",
-    crossScalaVersions := Seq("2.13.12", scalaVersion.value),
+    scalaVersion := "3.3.3",
+    crossScalaVersions := Seq("2.13.14", scalaVersion.value),
     scalacOptions ++= myScalacOptions(scalaVersion.value),
     versionScheme := Some("early-semver")
   )
@@ -43,7 +43,7 @@ def scalaJsReactSettings(config: CssDslConfig) = Seq(
 )
 
 def scalatagsSettings(config: CssDslConfig) = Seq(
-  libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.12.0",
+  libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.13.1",
   cssVariant := TargetImpl.Scalatags,
   cssDslConfig := config
 )

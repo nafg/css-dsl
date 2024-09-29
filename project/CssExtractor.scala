@@ -1,29 +1,45 @@
 import java.net.URL
 
-import scala.collection.JavaConverters._
+import scala.collection.JavaConverters.*
 import scala.collection.immutable.SortedSet
 
 import com.helger.commons.collection.impl.ICommonsList
 import com.helger.commons.io.IHasReader
-import com.helger.css.decl._
+import com.helger.css.decl.*
 import com.helger.css.reader.{CSSReader, CSSReaderSettings}
 
 
 object CssExtractor {
   private val hex = (('0' to '9') ++ ('a' to 'f') ++ ('A' to 'F')).toSet
 
+  private object Unicode {
+    def unapply(chars: List[Char]): Option[(Char, List[Char])] = {
+      val (first6, further) = chars.splitAt(6)
+      val (digits, beyond) = first6.span(hex)
+      if (digits.isEmpty)
+        None
+      else {
+        val c = Integer.parseInt(digits.mkString, 16).toChar
+        val rest = beyond ++ further
+        val more =
+          rest match {
+            case '\r' :: '\n' :: more        => more
+            case w :: more if w.isWhitespace => more
+            case more                        => more
+          }
+        Some((c, more))
+      }
+    }
+  }
+  //\\[^\r\n\f0-9a-f]
+  val unesapable = Set('\r', '\n', '\f') ++ ((0 to 9).map(_.toChar) ++ ('a' to 'f') ++ ('A' to 'F'))
+
   def unescape(s: String) = {
     def loop(ch: List[Char]): List[Char] = ch match {
-      case Nil          => Nil
-      case '\\' :: rest =>
-        val (digits, beyond) = rest.span(hex)
-        val c = Integer.parseInt(digits.mkString, 16).toChar
-        beyond match {
-          case '\r' :: '\n' :: more        => c :: loop(more)
-          case w :: more if w.isWhitespace => c :: loop(more)
-          case more                        => c :: loop(more)
-        }
-      case c :: rest    => c :: loop(rest)
+      case Nil                                 => Nil
+      case '\\' :: Unicode(c, beyond)          => c :: loop(beyond)
+      case '\\' :: c :: rest if !unesapable(c) => c :: loop(rest)
+      case c :: rest                           => c :: loop(rest)
     }
 
     loop(s.toList).mkString
@@ -59,6 +75,6 @@ object CssExtractor {
   def getClassesFromURL(url: URL): SortedSet[String] = {
     val reader: IHasReader = () => new java.io.InputStreamReader(url.openStream())
     val sheet = CSSReader.readFromReader(reader, new CSSReaderSettings())
-    SortedSet(getClassesFromSheet(sheet).toSeq: _*)
+    SortedSet(getClassesFromSheet(sheet).toSeq *)
   }
 }

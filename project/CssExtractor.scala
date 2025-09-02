@@ -1,7 +1,10 @@
+import java.io.{File, StringReader}
 import java.net.URL
 
 import scala.collection.JavaConverters.*
 import scala.collection.immutable.SortedSet
+import scala.io.Source
+import scala.util.{Failure, Success, Try}
 
 import com.helger.commons.collection.impl.ICommonsList
 import com.helger.commons.io.IHasReader
@@ -72,9 +75,51 @@ object CssExtractor {
   def getClassesFromSheet(sheet: CascadingStyleSheet): Iterator[String] =
     getClassesFromRules(sheet.getAllRules)
 
+  def getLocalCssFallback(url: URL): Option[String] = {
+    val urlString = url.toString
+    val fallbackFile = urlString match {
+      case s if s.contains("fontawesome-free") || s.contains("font-awesome") => "fontawesome.css"
+      case s if s.contains("bootstrap") && (s.contains("/3.") || s.contains("stackpath.bootstrapcdn.com")) => "bootstrap3.css" 
+      case s if s.contains("bootstrap") && s.contains("@4.") => "bootstrap4.css"
+      case s if s.contains("bootstrap") && s.contains("@5.") => "bootstrap5.css"
+      case s if s.contains("bulma") => "bulma.css"
+      case s if s.contains("semantic-ui") => "semanticui.css"
+      case s if s.contains("fomantic-ui") => "fomanticui.css"
+      case _ => return None
+    }
+    
+    val cacheFile = new File(s"project/css-cache/$fallbackFile")
+    if (cacheFile.exists()) {
+      Try(Source.fromFile(cacheFile).mkString) match {
+        case Success(content) => Some(content)
+        case Failure(_) => None
+      }
+    } else {
+      None
+    }
+  }
+
   def getClassesFromURL(url: URL): SortedSet[String] = {
-    val reader: IHasReader = () => new java.io.InputStreamReader(url.openStream())
-    val sheet = CSSReader.readFromReader(reader, new CSSReaderSettings())
-    SortedSet(getClassesFromSheet(sheet).toSeq *)
+    // First try to download from the actual URL
+    Try {
+      val reader: IHasReader = () => new java.io.InputStreamReader(url.openStream())
+      val sheet = CSSReader.readFromReader(reader, new CSSReaderSettings())
+      SortedSet(getClassesFromSheet(sheet).toSeq *)
+    } match {
+      case Success(classes) => classes
+      case Failure(exception) =>
+        println(s"Failed to download CSS from $url: ${exception.getMessage}")
+        // Fall back to local cached CSS
+        getLocalCssFallback(url) match {
+          case Some(cssContent) =>
+            println(s"Using local fallback CSS for $url")
+            val reader: IHasReader = () => new StringReader(cssContent)
+            val sheet = CSSReader.readFromReader(reader, new CSSReaderSettings())
+            SortedSet(getClassesFromSheet(sheet).toSeq *)
+          case None =>
+            println(s"No local fallback available for $url, returning empty set")
+            SortedSet.empty[String]
+        }
+    }
   }
 }

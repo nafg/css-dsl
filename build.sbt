@@ -1,4 +1,3 @@
-import scala.sys.process.stringToProcess
 import _root_.io.github.nafg.mergify.dsl._
 import _root_.io.github.nafg.scalacoptions._
 
@@ -26,16 +25,6 @@ mergifyExtraConditions := Seq(
     (Attr.Author :== "nafg-scala-steward[bot]")
 )
 
-def npmView(pkg: String, field: String)(parse: Stream[String] => String) =
-  parse(s"npm view $pkg $field".lineStream)
-
-def latestTag(pkg: String) = npmView(pkg, "dist-tags.latest")(_.head)
-
-val npmViewVersionRegex = ".*'(.*)'".r
-
-def latestIn(pkg: String, versionMajor: Int) =
-  npmView(s"$pkg@$versionMajor", "version")(_.last match { case npmViewVersionRegex(v) => v })
-
 def scalaJsReactSettings(config: CssDslConfig) = Seq(
   libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "2.1.2",
   cssVariant := TargetImpl.ScalaJsReact,
@@ -52,7 +41,7 @@ val bootstrap3Config =
   CssDslConfig(
     "Bootstrap 3",
     Set(None, Some("bs"), Some("bs3")),
-    latestIn("bootstrap", 3),
+    "3.4.1", // pin to stable version instead of latestIn("bootstrap", 3)
     "https://stackpath.bootstrapcdn.com/bootstrap/" + _ + "/css/bootstrap.min.css"
   )
 
@@ -60,7 +49,7 @@ val bootstrap4Config =
   CssDslConfig(
     "Bootstrap 4",
     Set(None, Some("bs"), Some("bs4")),
-    latestIn("bootstrap", 4),
+    "4.6.2", // pin to stable version instead of latestIn("bootstrap", 4)
     "https://cdn.jsdelivr.net/npm/bootstrap@" + _ + "/dist/css/bootstrap.min.css"
   )
 
@@ -68,7 +57,7 @@ val bootstrap5Config =
   CssDslConfig(
     "Bootstrap 5",
     Set(None, Some("bs"), Some("bs5")),
-    latestIn("bootstrap", 5),
+    "5.3.3", // pin to stable version instead of latestIn("bootstrap", 5)
     "https://cdn.jsdelivr.net/npm/bootstrap@" + _ + "/dist/css/bootstrap.min.css"
   )
 
@@ -76,7 +65,7 @@ val bulmaConfig =
   CssDslConfig(
     "Bulma",
     Set(None, Some("b")),
-    latestTag("bulma"),
+    "0.9.4", // pin to stable version instead of latestTag("bulma")
     "https://cdn.jsdelivr.net/npm/bulma@" + _ + "/css/bulma.min.css"
   )
 
@@ -84,7 +73,7 @@ val semanticUiConfig =
   CssDslConfig(
     "Semantic UI",
     Set(Some("s")),
-    latestTag("semantic-ui"),
+    "2.5.0", // pin to stable version instead of latestTag("semantic-ui")
     "https://cdn.jsdelivr.net/npm/semantic-ui@" + _ + "/dist/semantic.min.css"
   )
 
@@ -100,7 +89,7 @@ val fontawesomeUiConfig =
   CssDslConfig(
     "Font Awesome",
     Set(None, Some("fa")),
-    latestTag("@fortawesome/fontawesome-free"),
+    "6.6.0", // pin to stable version instead of latestTag("@fortawesome/fontawesome-free")
     "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@" + _ + "/css/all.min.css"
   )
 

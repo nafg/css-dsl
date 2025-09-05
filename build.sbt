@@ -37,7 +37,7 @@ def latestIn(pkg: String, versionMajor: Int) =
   npmView(s"$pkg@$versionMajor", "version")(_.last match { case npmViewVersionRegex(v) => v })
 
 def scalaJsReactSettings(config: CssDslConfig) = Seq(
-  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "2.1.2",
+  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "2.1.3",
   cssVariant := TargetImpl.ScalaJsReact,
   cssDslConfig := config
 )

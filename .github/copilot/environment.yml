@@ -1,0 +1,84 @@
+# GitHub Copilot Agent Environment Configuration
+# Based on the existing CI workflow to ensure consistent development environment
+
+name: CSS DSL Development Environment
+
+# Use the same OS as CI workflow
+os: ubuntu-latest
+
+# Environment variables matching CI setup
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# Steps to set up the environment, mirroring the CI workflow
+setup:
+  # Setup Java (temurin@11) - matches CI exactly
+  - name: Setup Java (temurin@11)
+    uses: actions/setup-java@v4
+    with:
+      distribution: temurin
+      java-version: 11
+      cache: sbt
+
+  # Setup SBT - matches CI exactly  
+  - name: Setup sbt
+    uses: sbt/setup-sbt@v1
+
+  # Ensure network access to required CDNs for CSS download
+  # These URLs are allowlisted for this repository
+  - name: Verify CDN access
+    run: |
+      echo "Verifying access to required CDNs..."
+      curl -I --connect-timeout 10 https://cdn.jsdelivr.net/
+      curl -I --connect-timeout 10 https://stackpath.bootstrapcdn.com/
+
+# Working directory setup
+working_directory: /home/runner/work/css-dsl/css-dsl
+
+# Scala versions supported (matching CI matrix)
+scala_versions:
+  - 2.13.x
+  - 3.3.x
+
+# Java versions supported (matching CI matrix)  
+java_versions:
+  - temurin@11
+
+# Essential commands for validation
+validation_commands:
+  # Check SBT is working
+  - name: Verify SBT installation
+    run: sbt --version
+    
+  # Verify project can be loaded
+  - name: Load SBT project
+    run: sbt projects
+    timeout: 30
+    
+  # Basic compilation test (with network access)
+  - name: Test compilation
+    run: sbt compile
+    timeout: 180
+    
+# Network requirements documentation
+network:
+  required: true
+  description: "Project requires internet access to download CSS files from CDNs during build"
+  allowlisted_domains:
+    - cdn.jsdelivr.net
+    - stackpath.bootstrapcdn.com
+  failure_example: "java.net.UnknownHostException: cdn.jsdelivr.net"
+
+# Project-specific information
+project_info:
+  type: "Scala code generator"
+  build_tool: "SBT 1.11.3"
+  target_frameworks: 
+    - "Bootstrap 3/4/5"
+    - "Bulma"
+    - "Semantic UI" 
+    - "Fomantic UI"
+    - "Font Awesome"
+  generated_projects: 14
+  no_src_directories: true
+  description: "Generates type-safe DSL wrappers for CSS frameworks"

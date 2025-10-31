@@ -16,6 +16,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SBT_OPTS: '-Xmx2g'
 
 jobs:
   build:

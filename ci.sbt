@@ -10,7 +10,7 @@ inThisBuild(List(
   githubWorkflowScalaVersions := githubWorkflowScalaVersions.value.map(_.replaceFirst("\\d+$", "x")),
   githubWorkflowTargetTags ++= Seq("v*"),
   githubWorkflowPublishTargetBranches := Seq(RefPredicate.StartsWith(Ref.Tag("v"))),
-  githubWorkflowJavaVersions := Seq(JavaSpec.temurin("11")),
+  githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17")),
   githubWorkflowPublish := Seq(
     WorkflowStep.Sbt(
       List("ci-release"),

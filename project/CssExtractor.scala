@@ -3,8 +3,8 @@ import java.net.URL
 import scala.collection.JavaConverters.*
 import scala.collection.immutable.SortedSet
 
-import com.helger.commons.collection.impl.ICommonsList
-import com.helger.commons.io.IHasReader
+import com.helger.base.io.iface.IHasReader
+import com.helger.collection.commons.ICommonsList
 import com.helger.css.decl.*
 import com.helger.css.reader.{CSSReader, CSSReaderSettings}
 

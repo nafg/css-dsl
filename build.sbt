@@ -100,7 +100,7 @@ val fontawesomeUiConfig =
   CssDslConfig(
     "Font Awesome",
     Set(None, Some("fa")),
-    "6.7.2", // Latest version that works - versions 7.0.0+ have CSS syntax that breaks the parser
+    latestTag("@fortawesome/fontawesome-free"),
     "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@" + _ + "/css/all.min.css"
   )
 

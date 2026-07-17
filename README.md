@@ -27,6 +27,7 @@ write code like this:
  * Bootstrap 3
  * Bootstrap 4
  * Bulma
+ * Tabler
  * Semantic UI
  * Fomantic UI
  * Font Awesome

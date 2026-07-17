@@ -1,4 +1,5 @@
 import java.net.URL
+import java.nio.charset.StandardCharsets
 
 import scala.collection.JavaConverters.*
 import scala.collection.immutable.SortedSet
@@ -73,8 +74,9 @@ object CssExtractor {
     getClassesFromRules(sheet.getAllRules)
 
   def getClassesFromURL(url: URL): SortedSet[String] = {
-    val reader: IHasReader = () => new java.io.InputStreamReader(url.openStream())
-    val sheet = CSSReader.readFromReader(reader, new CSSReaderSettings())
+    val reader: IHasReader = () => new java.io.InputStreamReader(url.openStream(), StandardCharsets.UTF_8)
+    val settings = new CSSReaderSettings().setBrowserCompliantMode(true)
+    val sheet = CSSReader.readFromReader(reader, settings)
     SortedSet(getClassesFromSheet(sheet).toSeq *)
   }
 }

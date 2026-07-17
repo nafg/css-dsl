@@ -19,7 +19,7 @@ object GeneratorPlugin extends AutoPlugin {
 
 
   override def projectSettings = Seq(
-    cssGen := {
+    cssGen := Def.uncached {
       val cfg = cssDslConfig.value
       val variant = cssVariant.value
       val outputDir = (Compile / sourceManaged).value

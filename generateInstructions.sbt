@@ -1,9 +1,9 @@
-val generateInstallInstructions = taskKey[Unit]("Generate instructions in README.md")
+@transient val generateInstallInstructions = taskKey[Unit]("Generate instructions in README.md")
 
-generateInstallInstructions := {
+LocalRootProject / generateInstallInstructions := {
   val info =
     Def.task((projectID.value, cssDslConfig.value, (publish / skip).value))
-      .all(ScopeFilter(inAnyProject -- inProjects(ThisProject))).value
+      .all(ScopeFilter(inAnyProject -- inProjects(LocalRootProject))).value
       .collect { case (id, cfg, false) =>
         (id,
           id.name.split('_') match {
@@ -67,7 +67,7 @@ generateInstallInstructions := {
         >${markerText("End")}
         >""".stripMargin('>')
 
-  val readmeFile = baseDirectory.value / "README.md"
+  val readmeFile = (LocalRootProject / baseDirectory).value / "README.md"
   val currentReadme = IO.readLines(readmeFile)
   val (before, rest) = currentReadme.span(_.trim != markerText("Begin"))
   val after = rest.reverse.takeWhile(_.trim != markerText("End")).reverse

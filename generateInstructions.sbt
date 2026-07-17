@@ -31,6 +31,7 @@ LocalRootProject / generateInstallInstructions := {
       val (op, library) = moduleNameSuffix match {
         case "scalatags"    => "%%" -> "`scalatags.Text` (JVM)"
         case "scalajsreact" => "%%%" -> "scalajs-react (scala.js)"
+        case "ziohttp"      => "%%" -> "ZIO HTTP `template2`"
       }
       List(
         config.name,

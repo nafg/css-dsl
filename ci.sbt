@@ -8,7 +8,21 @@ inThisBuild(List(
   dynverSonatypeSnapshots := true,
   githubWorkflowEnv += ("SBT_OPTS" -> "-Xmx2g"),
   githubWorkflowScalaVersions := githubWorkflowScalaVersions.value.map(_.replaceFirst("\\.\\d+\\.\\d+$", ".x")),
-  githubWorkflowTargetTags ++= Seq("v*"),
+  githubWorkflowGeneratedUploadSteps := Seq(
+    WorkflowStep.Run(
+      List("tar cf targets.tar target project/target"),
+      name = Some("Compress target directories")
+    ),
+    WorkflowStep.Use(
+      UseRef.Public("actions", "upload-artifact", "v7"),
+      name = Some("Upload target directories"),
+      params = Map(
+        "name" -> "target-${{ matrix.os }}-${{ matrix.scala }}-${{ matrix.java }}",
+        "path" -> "targets.tar"
+      )
+    )
+  ),
+  githubWorkflowTargetTags := Seq("v*"),
   githubWorkflowPublishTargetBranches := Seq(RefPredicate.StartsWith(Ref.Tag("v"))),
   githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17")),
   githubWorkflowPublish := Seq(

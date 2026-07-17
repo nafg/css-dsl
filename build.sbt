@@ -18,8 +18,8 @@ inThisBuild(
   )
 )
 
-name := "css-dsl"
-publish / skip := true
+LocalRootProject / name := "css-dsl"
+LocalRootProject / publish / skip := true
 
 mergifyExtraConditions := Seq(
   (Attr.Author :== "scala-steward") ||
@@ -37,13 +37,13 @@ def latestIn(pkg: String, versionMajor: Int) =
   npmView(s"$pkg@$versionMajor", "version")(_.last match { case npmViewVersionRegex(v) => v })
 
 def scalaJsReactSettings(config: CssDslConfig) = Seq(
-  libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "4.0.0",
+  libraryDependencies += "com.github.japgolly.scalajs-react" %% "core" % "4.0.0",
   cssVariant := TargetImpl.ScalaJsReact,
   cssDslConfig := config
 )
 
 def scalatagsSettings(config: CssDslConfig) = Seq(
-  libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.13.1",
+  libraryDependencies += "com.lihaoyi" %% "scalatags" % "0.13.1",
   cssVariant := TargetImpl.Scalatags,
   cssDslConfig := config
 )

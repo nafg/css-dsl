@@ -29,8 +29,22 @@ jobs:
       - name: Setup sbt
         uses: sbt/setup-sbt@v1
 
+      - name: Checkout the latest release tag
+        run: git checkout "$(git tag --list 'v*' --sort=-version:refname | head -n 1)"
+
       - name: Regenerate README
-        run: sbt generateInstallInstructions
+        run: |
+          sbt generateInstallInstructions
+          cp README.md "$RUNNER_TEMP/README.md"
+
+      - name: Checkout master
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          ref: master
+
+      - name: Restore the regenerated README
+        run: cp "$RUNNER_TEMP/README.md" README.md
 
       - name: Open README update pull request
         uses: peter-evans/create-pull-request@v8
@@ -40,14 +54,13 @@ jobs:
           branch: automation/regenerate-readme
           delete-branch: true
           commit-message: |
-            Regenerate README after release
+            Regenerate README
 
-            Update the generated installation instructions after publishing a release.
-          title: Regenerate README after release
+            Update the generated installation instructions.
+          title: Regenerate README
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            Regenerates the installation instructions in `README.md` after publishing
-            a release.
+            Regenerates the installation instructions in `README.md`.
 
             This pull request was created automatically by the
             [Regenerate README workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).

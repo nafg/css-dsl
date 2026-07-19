@@ -1,0 +1,57 @@
+name: Regenerate README
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-ref:
+        description: Git tag or ref whose published versions should appear in the README
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  regenerate:
+    name: Regenerate README
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the release
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.release-ref }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: sbt
+
+      - name: Setup sbt
+        uses: sbt/setup-sbt@v1
+
+      - name: Regenerate README
+        run: sbt generateInstallInstructions
+
+      - name: Open README update pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          add-paths: README.md
+          base: master
+          branch: automation/regenerate-readme
+          delete-branch: true
+          commit-message: |
+            Regenerate README for ${{ inputs.release-ref }}
+
+            Update the generated installation instructions to use the versions
+            published from ${{ inputs.release-ref }}.
+          title: Regenerate README for ${{ inputs.release-ref }}
+          body: |
+            Regenerates the installation instructions in `README.md` after publishing
+            `${{ inputs.release-ref }}`.
+
+            This pull request was created automatically by the
+            [Regenerate README workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).

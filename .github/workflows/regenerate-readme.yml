@@ -21,6 +21,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          persist-credentials: false
           ref: ${{ inputs.release-ref }}
 
       - name: Setup Java
@@ -34,7 +35,18 @@ jobs:
         uses: sbt/setup-sbt@v1
 
       - name: Regenerate README
-        run: sbt generateInstallInstructions
+        run: |
+          sbt generateInstallInstructions
+          cp README.md "$RUNNER_TEMP/README.md"
+
+      - name: Checkout the target branch
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          ref: master
+
+      - name: Restore the regenerated README
+        run: cp "$RUNNER_TEMP/README.md" README.md
 
       - name: Open README update pull request
         uses: peter-evans/create-pull-request@v8
@@ -49,6 +61,7 @@ jobs:
             Update the generated installation instructions to use the versions
             published from ${{ inputs.release-ref }}.
           title: Regenerate README for ${{ inputs.release-ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           body: |
             Regenerates the installation instructions in `README.md` after publishing
             `${{ inputs.release-ref }}`.

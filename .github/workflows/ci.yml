@@ -15,7 +15,6 @@ on:
     tags: [v*]
 
 permissions:
-  actions: write
   contents: read
 
 env:
@@ -73,6 +72,9 @@ jobs:
         scala: [3.8.4]
         java: [temurin@17]
     runs-on: ${{ matrix.os }}
+    permissions:
+      actions: write
+      contents: read
     steps:
       - name: Checkout current branch (full)
         uses: actions/checkout@v7
@@ -118,6 +120,4 @@ jobs:
         run: sbt ci-release
 
       - name: Regenerate README for the release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh workflow run regenerate-readme.yml --ref master --field release-ref="${GITHUB_REF_NAME}"

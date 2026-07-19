@@ -7,6 +7,17 @@ inThisBuild(List(
   dynverGitDescribeOutput ~= (_.map(o => o.copy(dirtySuffix = sbtdynver.GitDirtySuffix("")))),
   dynverSonatypeSnapshots := true,
   githubWorkflowEnv += ("SBT_OPTS" -> "-Xmx2g"),
+  githubWorkflowPermissions := Some(Permissions.Specify(Map(
+    PermissionScope.Contents -> PermissionValue.Read
+  ))),
+  githubWorkflowGeneratedCI ~= (_.map {
+    case job if job.id == "publish" =>
+      job.copy(permissions = Some(Permissions.Specify(Map(
+        PermissionScope.Actions -> PermissionValue.Write,
+        PermissionScope.Contents -> PermissionValue.Read
+      ))))
+    case job => job
+  }),
   githubWorkflowScalaVersions := githubWorkflowScalaVersions.value.map(_.replaceFirst("\\.\\d+\\.\\d+$", ".x")),
   githubWorkflowGeneratedUploadSteps := Seq(
     WorkflowStep.Run(
@@ -34,6 +45,12 @@ inThisBuild(List(
         "SONATYPE_PASSWORD" -> "${{ secrets.SONATYPE_PASSWORD }}",
         "SONATYPE_USERNAME" -> "${{ secrets.SONATYPE_USERNAME }}"
       )
+    )
+  ),
+  githubWorkflowPublishPostamble := Seq(
+    WorkflowStep.Run(
+      List("gh workflow run regenerate-readme.yml --ref master --field release-ref=\"${GITHUB_REF_NAME}\""),
+      name = Some("Regenerate README for the release")
     )
   )
 ))

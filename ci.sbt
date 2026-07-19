@@ -49,7 +49,7 @@ inThisBuild(List(
   ),
   githubWorkflowPublishPostamble := Seq(
     WorkflowStep.Run(
-      List("gh workflow run regenerate-readme.yml --ref master --field release-ref=\"${GITHUB_REF_NAME}\""),
+      List("gh workflow run regenerate-readme.yml --ref master"),
       name = Some("Regenerate README for the release")
     )
   )

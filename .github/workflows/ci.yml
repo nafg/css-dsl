@@ -120,4 +120,4 @@ jobs:
         run: sbt ci-release
 
       - name: Regenerate README for the release
-        run: gh workflow run regenerate-readme.yml --ref master --field release-ref="${GITHUB_REF_NAME}"
+        run: gh workflow run regenerate-readme.yml --ref master

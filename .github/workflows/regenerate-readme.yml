@@ -2,11 +2,6 @@ name: Regenerate README
 
 on:
   workflow_dispatch:
-    inputs:
-      release-ref:
-        description: Git tag or ref whose published versions should appear in the README
-        required: true
-        type: string
 
 permissions:
   contents: write
@@ -17,12 +12,12 @@ jobs:
     name: Regenerate README
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the release
+      - name: Checkout master
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
           persist-credentials: false
-          ref: ${{ inputs.release-ref }}
+          ref: master
 
       - name: Setup Java
         uses: actions/setup-java@v5
@@ -35,18 +30,7 @@ jobs:
         uses: sbt/setup-sbt@v1
 
       - name: Regenerate README
-        run: |
-          sbt generateInstallInstructions
-          cp README.md "$RUNNER_TEMP/README.md"
-
-      - name: Checkout the target branch
-        uses: actions/checkout@v7
-        with:
-          persist-credentials: false
-          ref: master
-
-      - name: Restore the regenerated README
-        run: cp "$RUNNER_TEMP/README.md" README.md
+        run: sbt generateInstallInstructions
 
       - name: Open README update pull request
         uses: peter-evans/create-pull-request@v8
@@ -56,15 +40,14 @@ jobs:
           branch: automation/regenerate-readme
           delete-branch: true
           commit-message: |
-            Regenerate README for ${{ inputs.release-ref }}
+            Regenerate README after release
 
-            Update the generated installation instructions to use the versions
-            published from ${{ inputs.release-ref }}.
-          title: Regenerate README for ${{ inputs.release-ref }}
+            Update the generated installation instructions after publishing a release.
+          title: Regenerate README after release
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
             Regenerates the installation instructions in `README.md` after publishing
-            `${{ inputs.release-ref }}`.
+            a release.
 
             This pull request was created automatically by the
             [Regenerate README workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).

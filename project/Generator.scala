@@ -34,7 +34,14 @@ class Generator(packageName: String,
 
   def defs: List[Stat] =
     classes.toList.map { cls =>
-      Defn.Val(List(Mod.Lazy()), List(Pat.Var(Term.Name(ident(cls)))), None, q"this.op($cls)")
+      val name = Term.Name(ident(cls))
+      q"def $name: A = this.op($cls)"
+    }
+
+  def cachedDefs: List[Stat] =
+    classes.toList.map { cls =>
+      val name = Pat.Var(Term.Name(ident(cls)))
+      q"override lazy val $name: A = this.op($cls)"
     }
 
   def allDefs = defs :+ q"protected def op(clz: String): A"
@@ -51,6 +58,11 @@ class Generator(packageName: String,
             ..$allDefs
           }
 
+          trait CachedClasses[A] extends Classes[A] {
+            ..$cachedDefs
+          }
+
+          ..${variant.support}
           ${variant.C}
 
           ${variant.implicitClass}

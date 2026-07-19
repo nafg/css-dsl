@@ -48,6 +48,12 @@ def scalatagsSettings(config: CssDslConfig) = Seq(
   cssDslConfig := config
 )
 
+def zioHttpTemplate2Settings(config: CssDslConfig) = Seq(
+  libraryDependencies += "dev.zio" %% "zio-http" % "3.11.3",
+  cssVariant := TargetImpl.ZioHttpTemplate2,
+  cssDslConfig := config
+)
+
 val bootstrap3Config =
   CssDslConfig(
     "Bootstrap 3",
@@ -116,38 +122,57 @@ lazy val bootstrap3_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bootstrap3Config))
 lazy val bootstrap3_scalatags =
   project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(bootstrap3Config))
+lazy val bootstrap3_ziohttp =
+  project
+    .enablePlugins(GeneratorPlugin)
+    .settings(zioHttpTemplate2Settings(bootstrap3Config))
+    .settings(libraryDependencies += "org.scalameta" %% "munit" % "1.2.4" % Test)
 
 lazy val bootstrap4_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bootstrap4Config))
 lazy val bootstrap4_scalatags =
   project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(bootstrap4Config))
+lazy val bootstrap4_ziohttp =
+  project.enablePlugins(GeneratorPlugin).settings(zioHttpTemplate2Settings(bootstrap4Config))
 
 lazy val bootstrap5_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bootstrap5Config))
 lazy val bootstrap5_scalatags =
   project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(bootstrap5Config))
+lazy val bootstrap5_ziohttp =
+  project.enablePlugins(GeneratorPlugin).settings(zioHttpTemplate2Settings(bootstrap5Config))
 
 lazy val bulma_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bulmaConfig))
 lazy val bulma_scalatags =
   project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(bulmaConfig))
+lazy val bulma_ziohttp =
+  project.enablePlugins(GeneratorPlugin).settings(zioHttpTemplate2Settings(bulmaConfig))
 
 lazy val tabler_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(tablerConfig))
 lazy val tabler_scalatags =
   project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(tablerConfig))
+lazy val tabler_ziohttp =
+  project.enablePlugins(GeneratorPlugin).settings(zioHttpTemplate2Settings(tablerConfig))
 
 lazy val semanticui_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(semanticUiConfig))
 lazy val semanticui_scalatags =
   project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(semanticUiConfig))
+lazy val semanticui_ziohttp =
+  project.enablePlugins(GeneratorPlugin).settings(zioHttpTemplate2Settings(semanticUiConfig))
 
 lazy val fomanticui_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(fomanticUiConfig))
 lazy val fomanticui_scalatags =
   project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(fomanticUiConfig))
+lazy val fomanticui_ziohttp =
+  project.enablePlugins(GeneratorPlugin).settings(zioHttpTemplate2Settings(fomanticUiConfig))
 
 lazy val fontawesome_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(fontawesomeUiConfig))
 lazy val fontawesome_scalatags =
   project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(fontawesomeUiConfig))
+lazy val fontawesome_ziohttp =
+  project.enablePlugins(GeneratorPlugin).settings(zioHttpTemplate2Settings(fontawesomeUiConfig))

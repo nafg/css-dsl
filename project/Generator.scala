@@ -12,10 +12,25 @@ class Generator(packageName: String,
     s2.take(1).toLowerCase + s2.drop(1)
   }
 
-  private def ident(cls: String) = {
-    val camelized = camelize(cls)
-    prefix.fold(camelized)(_ + camelized.capitalize)
+  private lazy val identifiers = {
+    val classesByIdentifier = classes.groupBy(camelize)
+    val result = classes.iterator.map { cls =>
+      val camelized = camelize(cls)
+      val identifier =
+        if (classesByIdentifier(camelized).size > 1 && cls != camelized)
+          prefix.fold(cls)(_ + "-" + cls)
+        else
+          prefix.fold(camelized)(_ + camelized.capitalize)
+      cls -> identifier
+    }.toMap
+    val duplicates = result.values.groupBy(identity).collect {
+      case (identifier, values) if values.size > 1 => identifier
+    }
+    require(duplicates.isEmpty, s"Generated duplicate identifiers: ${duplicates.mkString(", ")}")
+    result
   }
+
+  private def ident(cls: String) = identifiers(cls)
 
   def defs: List[Stat] =
     classes.toList.map { cls =>

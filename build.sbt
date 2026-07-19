@@ -80,6 +80,14 @@ val bulmaConfig =
     "https://cdn.jsdelivr.net/npm/bulma@" + _ + "/css/bulma.min.css"
   )
 
+val tablerConfig =
+  CssDslConfig(
+    "Tabler",
+    Set(None, Some("t")),
+    latestTag("@tabler/core"),
+    "https://cdn.jsdelivr.net/npm/@tabler/core@" + _ + "/dist/css/tabler.min.css"
+  )
+
 val semanticUiConfig =
   CssDslConfig(
     "Semantic UI",
@@ -123,6 +131,11 @@ lazy val bulma_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bulmaConfig))
 lazy val bulma_scalatags =
   project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(bulmaConfig))
+
+lazy val tabler_scalajsreact =
+  project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(tablerConfig))
+lazy val tabler_scalatags =
+  project.enablePlugins(GeneratorPlugin).settings(scalatagsSettings(tablerConfig))
 
 lazy val semanticui_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(semanticUiConfig))

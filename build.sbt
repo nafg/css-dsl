@@ -126,7 +126,7 @@ lazy val bootstrap3_ziohttp =
   project
     .enablePlugins(GeneratorPlugin)
     .settings(zioHttpTemplate2Settings(bootstrap3Config))
-    .settings(libraryDependencies += "org.scalameta" %% "munit" % "1.2.4" % Test)
+    .settings(libraryDependencies += "org.scalameta" %% "munit" % "1.3.4" % Test)
 
 lazy val bootstrap4_scalajsreact =
   project.enablePlugins(ScalaJSPlugin, GeneratorPlugin).settings(scalaJsReactSettings(bootstrap4Config))

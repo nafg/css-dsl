@@ -55,20 +55,30 @@ Artifacts are published to Bintray and synced to Bintray JCenter. For SBT use `r
 
 | CSS library  | Scala DOM library        | SBT Module ID                                                        |
 |--------------|--------------------------|----------------------------------------------------------------------|
-| Bootstrap 3  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap3_scalatags" % "0.10.0"`      |
-| Bootstrap 3  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap3_scalajsreact" % "0.10.0"`  |
-| Bootstrap 4  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap4_scalatags" % "0.10.0"`      |
-| Bootstrap 4  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap4_scalajsreact" % "0.10.0"`  |
-| Bootstrap 5  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap5_scalatags" % "0.10.0"`      |
-| Bootstrap 5  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap5_scalajsreact" % "0.10.0"`  |
-| Bulma        | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bulma_scalatags" % "0.10.0"`           |
-| Bulma        | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bulma_scalajsreact" % "0.10.0"`       |
-| Fomantic UI  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "fomanticui_scalatags" % "0.10.0"`      |
-| Fomantic UI  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "fomanticui_scalajsreact" % "0.10.0"`  |
-| Font Awesome | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "fontawesome_scalatags" % "0.10.0"`     |
-| Font Awesome | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "fontawesome_scalajsreact" % "0.10.0"` |
-| Semantic UI  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "semanticui_scalatags" % "0.10.0"`      |
-| Semantic UI  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "semanticui_scalajsreact" % "0.10.0"`  |
+| Bootstrap 3  | ZIO HTTP `template2`     | `"io.github.nafg.css-dsl" %% "bootstrap3_ziohttp" % "0.11.0"`        |
+| Bootstrap 3  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap3_scalatags" % "0.11.0"`      |
+| Bootstrap 3  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap3_scalajsreact" % "0.11.0"`  |
+| Bootstrap 4  | ZIO HTTP `template2`     | `"io.github.nafg.css-dsl" %% "bootstrap4_ziohttp" % "0.11.0"`        |
+| Bootstrap 4  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap4_scalatags" % "0.11.0"`      |
+| Bootstrap 4  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap4_scalajsreact" % "0.11.0"`  |
+| Bootstrap 5  | ZIO HTTP `template2`     | `"io.github.nafg.css-dsl" %% "bootstrap5_ziohttp" % "0.11.0"`        |
+| Bootstrap 5  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bootstrap5_scalatags" % "0.11.0"`      |
+| Bootstrap 5  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bootstrap5_scalajsreact" % "0.11.0"`  |
+| Bulma        | ZIO HTTP `template2`     | `"io.github.nafg.css-dsl" %% "bulma_ziohttp" % "0.11.0"`             |
+| Bulma        | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "bulma_scalatags" % "0.11.0"`           |
+| Bulma        | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "bulma_scalajsreact" % "0.11.0"`       |
+| Fomantic UI  | ZIO HTTP `template2`     | `"io.github.nafg.css-dsl" %% "fomanticui_ziohttp" % "0.11.0"`        |
+| Fomantic UI  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "fomanticui_scalatags" % "0.11.0"`      |
+| Fomantic UI  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "fomanticui_scalajsreact" % "0.11.0"`  |
+| Font Awesome | ZIO HTTP `template2`     | `"io.github.nafg.css-dsl" %% "fontawesome_ziohttp" % "0.11.0"`       |
+| Font Awesome | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "fontawesome_scalatags" % "0.11.0"`     |
+| Font Awesome | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "fontawesome_scalajsreact" % "0.11.0"` |
+| Semantic UI  | ZIO HTTP `template2`     | `"io.github.nafg.css-dsl" %% "semanticui_ziohttp" % "0.11.0"`        |
+| Semantic UI  | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "semanticui_scalatags" % "0.11.0"`      |
+| Semantic UI  | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "semanticui_scalajsreact" % "0.11.0"`  |
+| Tabler       | ZIO HTTP `template2`     | `"io.github.nafg.css-dsl" %% "tabler_ziohttp" % "0.11.0"`            |
+| Tabler       | `scalatags.Text` (JVM)   | `"io.github.nafg.css-dsl" %% "tabler_scalatags" % "0.11.0"`          |
+| Tabler       | scalajs-react (scala.js) | `"io.github.nafg.css-dsl" %%% "tabler_scalajsreact" % "0.11.0"`      |
 
 
 ### Import
@@ -90,6 +100,8 @@ Artifacts are published to Bintray and synced to Bintray JCenter. For SBT use `r
 | Font Awesome | None   | `import cssdsl.fontawesome.Dsl._`   |
 | Font Awesome | `fa`   | `import cssdsl.fontawesome.FaDsl._` |
 | Semantic UI  | `s`    | `import cssdsl.semanticui.SDsl._`   |
+| Tabler       | None   | `import cssdsl.tabler.Dsl._`        |
+| Tabler       | `t`    | `import cssdsl.tabler.TDsl._`       |
 
 
 <!-- End autogenerated via sbt generateInstallInstructions -->

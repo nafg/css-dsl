@@ -12,7 +12,7 @@ inThisBuild(
   List(
     organization := "io.github.nafg.css-dsl",
     scalaVersion := "3.9.0",
-    crossScalaVersions := Seq("2.13.18", scalaVersion.value),
+    crossScalaVersions := Seq("3.9.0", scalaVersion.value),
     scalacOptions ++= myScalacOptions(scalaVersion.value),
     versionScheme := Some("early-semver")
   )

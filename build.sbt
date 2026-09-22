@@ -49,7 +49,7 @@ def scalatagsSettings(config: CssDslConfig) = Seq(
 )
 
 def zioHttpTemplate2Settings(config: CssDslConfig) = Seq(
-  libraryDependencies += "dev.zio" %% "zio-http" % "3.11.5",
+  libraryDependencies += "dev.zio" %% "zio-http" % "3.11.6",
   cssVariant := TargetImpl.ZioHttpTemplate2,
   cssDslConfig := config
 )
